@@ -1,5 +1,5 @@
 # Blog-Website-Clone
-Created clone of a Blog Website (WP Beginners) using HTML, CSS and JavaScript.
+Created clone of a Blog Website (WPBeginner) using HTML, CSS and JavaScript.
 
 ## Home Page
 ![This is the Home Page output](https://github.com/AdyaTech/Front-End-Web-Development/blob/main/JavaScript/Blog%20Website%20Clone/Home%20Page/Home%20page.png)
