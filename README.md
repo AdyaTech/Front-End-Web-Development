@@ -6,3 +6,4 @@
 |-------|---------|------|
 | 1 | Blog Website | [Link](https://github.com/AdyaTech/Front-End-Web-Development/tree/main/JavaScript/Blog%20Website%20Clone) |
 | 2 | Portfolio Website | [Link](https://github.com/AdyaTech/Front-End-Web-Development/tree/main/JavaScript/Portfolio%20Website%20Clone) |
+| 3 | Social Media Website | [Link](https://github.com/AdyaTech/Front-End-Web-Development/tree/main/JavaScript/Social%20Media%20Website) |
