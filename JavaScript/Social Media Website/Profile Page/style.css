@@ -1,0 +1,844 @@
+body {
+    background-color: white;  
+    overflow-x: hidden;
+    overflow: hidden;
+}
+
+.collapsible {
+    background-color: white;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+  
+  .active, .collapsible:hover {
+    background-color: white;
+  }
+  
+  .content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    position: relative;
+    bottom: 3400px;
+    width: 500px;
+    left: 900px;
+  }
+
+
+.dropbtn {
+    background-color: white;
+    color: rgb(0, 0, 0);
+    /* padding: 6px 12px; */
+    font-size: 16px;
+    border: none;
+    right: -1px;
+    width: 130px;
+    height: 44px;
+    border-radius: 40px;
+    cursor: pointer;
+    position: relative;
+    bottom: 90px;
+    
+    /* width: 160px;
+    height: 46px; */
+    min-height: 30px;
+    font-weight: bold;
+
+ }
+
+ .dropbtn:hover,
+ .dropbtn:focus {
+    -webkit-filter: brightness(90%);
+    cursor: pointer;
+    
+ }
+
+ .dropdown {
+    position: relative;
+    display: inline-block;
+
+ }
+
+ .dropdown-content {
+    display: none;
+    position: relative;
+    bottom: 315px;
+    background-color: white;
+    width: 300px;
+    height: 300px;
+    overflow: auto;
+    border-radius: 10px;
+    border: gray solid 0.2px;
+    box-shadow: #7c7c7c 1px;
+    line-height: 2px;
+    font-size: 14px;
+    z-index: 1;
+ }
+
+ .dropdown-content a:hover{
+   background-color: #F7F9F9;
+ }
+
+ .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+ }
+
+ .show {
+    display: block;
+    z-index: 2;
+ }
+ 
+
+
+
+
+
+
+.column-one {
+    border-left: 1px solid #d5d3d3;
+    opacity: 20%;
+    height: 710px;
+    position: relative;
+    bottom: 12px;
+    left: 305px;
+  }
+
+.twitter-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
+    position: relative;
+    left: 45px;
+    bottom: 716px;
+    /* -webkit-filter: brightness(100%); */
+}
+
+.twitter-circle:hover {
+    -webkit-filter: brightness(100%);
+    background-color: #d7effaf9;
+    cursor: pointer;
+}
+
+.twitter-icon {
+    width: 33px;
+    position: relative;
+    left: 8px;
+    top: 8px;
+}
+
+.link-container {
+    height: 466px;
+    width: 208px;
+    background-color: white;
+    position: relative;
+    left: 45px;
+    bottom: 725px;
+}
+.round-link {
+    width: 135px;
+    height: 42px;
+    border-radius: 40px;
+    background-color: white;
+    position: relative;
+    padding: 3px;
+}
+
+.homeicon {
+    width: 108px;
+    position: relative;
+    left: 1px;
+    top: 6px;
+    border-radius: 30%;
+}
+
+.round-link-two {
+    width: 130px;
+    height: 42px;
+    border-radius: 40px;
+    background-color: white;
+    position: relative;
+    bottom: 15px;
+    padding: 3px;
+}
+.exploreicon {
+    width: 114px;
+    position: relative;
+    left: 6px;
+    top: 3.5px;
+
+}
+.round-link-three {
+    width: 180px;
+    height: 42px;
+    border-radius: 40px;
+    background-color: white;
+    position: relative;
+    top: -25px;
+    padding: 3px;
+}
+.notifyicon {
+    width: 165px;
+    position: relative;
+    left: 4px;
+    top: 2px;
+
+}
+.round-link-four {
+    width: 150px;
+    height: 42px;
+    border-radius: 40px;
+    background-color: white;
+    position: relative;
+    top: -40px;
+    padding: 3px;
+}
+.messagesicon {
+    width: 138px;
+    position: relative;
+    left: 6px;
+    top: 4.5px;
+
+}
+.round-link-five {
+    width: 160px;
+    height: 42px;
+    border-radius: 40px;
+    background-color: white;
+    position: relative;
+    top: -55px;
+    padding: 3px;
+}
+.bookmarkicon {
+    width: 151px;
+    position: relative;
+    left: 4.5px;
+    top: 5px;
+
+}
+.round-link-six {
+    width: 130px;
+    height: 42px;
+    border-radius: 40px;
+    background-color: white;
+    position: relative;
+    top: -65px;
+    padding: 3px;
+}
+.listsicon {
+    width: 89px;
+    position: relative;
+    left: 7px;
+    top: -0.1px;
+
+}
+.round-link-seven {
+    width: 130px;
+    height: 42px;
+    border-radius: 40px;
+    background-color: white;
+    position: relative;
+    top: -79px;
+    padding: 3px;
+}
+.profileicon {
+    width: 103px;
+    position: relative;
+    left: 6px;
+    top: 3px;
+   
+}
+.round-link-eight {
+    width: 130px;
+    height: 42px;
+    border-radius: 40px;
+    background-color: white;
+    position: relative;
+    top: -92px;
+    padding: 2px;
+    z-index: 1;
+}
+
+.round-link-nine {
+    width: 220px;
+    height: 42px;
+    border-radius: 40px;
+    background-color: white;
+    position: relative;
+    top: -800px;
+    left: 50px;
+    padding: 9px;
+    cursor: pointer;
+}
+.profiledp {
+    width: 230px;
+    height: 46px;
+    padding: 9px;
+    position: relative;
+    left: -13px;
+    bottom: 12px;
+    border-radius: 40px;
+    cursor: pointer;
+}
+.round-link-nine:hover {
+    -webkit-filter: brightness(90%);
+    cursor: pointer;
+
+}
+
+.moreicon {
+    width: 96px;
+    position: relative;
+    left: 5px;
+    bottom: -1px;
+    border-radius: 20%;
+}
+
+
+.round-tweet {
+    width: 218px;
+    height: 45px;
+    border-radius: 40px;
+    background-color: #1D9BF0;
+    position: relative;
+    bottom: 798px;
+    left: 43px;
+    padding: 4px;
+    /* -webkit-filter: brightness(100%); */
+    cursor: pointer;
+}
+
+.round-tweet:hover {
+    -webkit-filter: brightness(90%);
+    cursor: pointer;
+
+}
+
+.link-tweet {
+    cursor: pointer;
+    color: white;
+    position: relative;
+    bottom: 855px; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 17px;
+    right: 518px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.link-tweet:hover {
+    -webkit-filter: brightness(95%);
+}
+
+.round-link:hover{
+    -webkit-filter: brightness(90%);
+    cursor: pointer;
+} 
+
+.round-link-two:hover{
+    -webkit-filter: brightness(90%);
+    cursor: pointer;
+} 
+
+.round-link-three:hover{
+    -webkit-filter: brightness(90%);
+    cursor: pointer;
+} 
+
+.round-link-four:hover{
+    -webkit-filter: brightness(90%);
+    cursor: pointer;
+} 
+
+.round-link-five:hover{
+    -webkit-filter: brightness(90%);
+    cursor: pointer;
+} 
+
+.round-link-six:hover{
+    -webkit-filter: brightness(90%);
+    cursor: pointer;
+}
+ 
+.round-link-seven:hover{
+    -webkit-filter: brightness(90%);
+    cursor: pointer;
+} 
+
+.round-link-eight:hover{
+    -webkit-filter: brightness(90%);
+    cursor: pointer;
+}
+
+.open-button {
+    background-color: white;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: -3px;
+    right: 28px;
+    width: 280px;
+  }
+  
+  /* The popup form - hidden by default */
+  .form-popup {
+    display: none;
+    position: relative;
+    bottom: 0;
+    left: 925px;
+    bottom: 3735px;
+    border: 1px solid gray;
+    border-radius: 20px;
+    width: 350px;
+    height: 600px;
+    z-index: 10;
+    background-color: white;
+
+  }
+  
+  .photo{
+    width: 350px; 
+    position: relative; 
+    top: -15px; 
+    left: -10px;
+  }
+
+  .photo:hover{
+    -webkit-filter: brightness(95%);
+    cursor: pointer;
+  }
+  /* Add styles to the form container */
+  .form-container {
+    max-width: 300px;
+    height: 300px;
+    padding: 10px;
+    background-color: white;
+  }
+  
+  /* Full-width input fields */
+  .form-container input[type=text], .form-container input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+  }
+  
+  /* When the inputs get focus, do something */
+  .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+  
+  /* Set a style for the submit/login button */
+  .form-container .btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+  }
+  
+  /* Add a red background color to the cancel button */
+  .form-container .cancel {
+    background-color: white;
+    opacity: 10%;
+    z-index: 1;
+    position: relative;
+    top: -390px;
+    left: 290px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  
+  /* Add some hover effects to buttons */
+  .form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+  }
+
+
+.column-two {
+    border-left: 1px solid #d5d3d3;
+    opacity: 20%;
+    height: 750px;
+    position: relative;
+    bottom: 1490px;
+    left: 905px;
+  }
+
+.profilepagedp {
+    position: relative;
+    left: 212px;
+    top: -2200px;
+    width: 599px;
+    cursor: pointer;
+}
+.dot {
+    height: 35px;
+    width: 35px;
+    background-color: white;
+    border-radius: 50%;
+    display: inline-block;
+    z-index: 2;
+    position: relative;
+    bottom: 2485px;
+    left: 310px;
+}
+
+.dot:hover{
+    -webkit-filter: brightness(90%);
+    cursor: pointer;
+}
+.strip {
+    height: 25px;
+    width: 25px;
+    background-color: white;
+   
+    display: inline-block;
+    z-index: 1;
+    position: relative;
+    bottom: 2500px;
+    left: 290px;
+}
+.pic{
+    width: 19px;
+    position: relative;
+    bottom: 2490px;
+    left: 280px;
+    z-index: 3;
+}
+/* .pic:hover{
+    -webkit-filter: brightness(90%);
+    cursor: pointer;
+} */
+.name {
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    left: 322px;
+    top: -2212px;
+}
+.subname {
+    color: #7c7c7c;
+    font-size: 14px;
+    font-weight: 2px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    left: 322px;
+    top: -2230px;
+}
+.about {
+    color: black;
+    font-size: 14.5px;
+    font-weight: 2px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    left: 322px;
+    top: -2230px; 
+}
+
+.calendar {
+    position: relative;
+    left: 309px;
+    top: -2265px; 
+    width: 180px;
+    cursor: text;
+}
+.link {
+    display: inline-block;
+    color: black;
+    position: relative;
+    left: 140px;
+    top: -2240px; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+.link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.linktwo {
+    display: inline-block;
+    color: black;
+    position: relative;
+    left: 150px;
+    top: -2240px; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+.linktwo:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.panelmenu {
+    width: 140px;
+    position: relative;
+    left: -45px;
+    top: -2165px; 
+}
+
+.panelmenu:hover {
+    -webkit-filter: brightness(90%);
+}
+
+.panelmenutwo {
+    width: 195px;
+    position: relative;
+    left: -45px;
+    top: -2165px; 
+}
+
+.panelmenutwo:hover {
+    -webkit-filter: brightness(90%);
+}
+
+.panelmenuthree {
+    width: 105px;
+    position: relative;
+    left: -45px;
+    top: -2165px; 
+}
+
+.panelmenuthree:hover {
+    -webkit-filter: brightness(90%);
+}
+
+.panelmenufour {
+    width: 125px;
+    position: relative;
+    left: -45px;
+    top: -2165px; 
+}
+
+.panelmenufour:hover {
+    -webkit-filter: brightness(90%);
+}
+
+.search {
+    position: relative;
+    left: 905px;
+    bottom: 3895px;
+    width: 427px;
+    cursor: text;
+}
+.pinned {
+    width: 602px;
+    position: relative;
+    left: 305px;
+    top: -2183px; 
+}
+.pinned:hover {
+    -webkit-filter: brightness(95%);
+}
+.images {
+    position: relative;
+    left: 500px;
+    bottom: 3680px;
+    width: 365px;
+    cursor: pointer;
+}
+  .hovered {
+    position: relative;
+    top: -75px;
+  }
+.mightlike {
+    position: relative;
+    left: 140px;
+    bottom: 3330px;
+    width: 355px;
+    cursor: pointer;
+}
+
+  .setting {
+    position: relative;
+    bottom: 2075px;
+    left: 305px;
+    width: 392px;
+  }
+
+  .youracc {
+    position: relative;
+    bottom: 2023px;
+    left: -92px;
+    width: 392px;
+    cursor: pointer;
+ 
+  }
+
+  .security {
+    position: relative;
+    bottom: 1980px;
+    left: -487px;
+    width: 392px;
+    cursor: pointer;
+    background: rgb(217, 215, 215);
+  }
+
+  .privacy {
+    position: relative;
+    bottom: 1973px;
+    left: 304px;
+    width: 390px;
+    cursor: pointer;
+    background: rgb(217, 215, 215);
+  }
+
+  .noti {
+    position: relative;
+    bottom: 1926px;
+    left: -88px;
+    width: 390px;
+    cursor: pointer;
+    background: rgb(217, 215, 215);
+  }
+
+  .access {
+    position: relative;
+    bottom: 1880px;
+    left: -483px;
+    width: 390px;
+    cursor: pointer;
+    background: rgb(217, 215, 215);
+  }
+
+  .additional {
+    position: relative;
+    bottom: 1873px;
+    left: 305px;
+    width: 390px;
+    cursor: pointer;
+    background: rgb(217, 215, 215);
+  }
+.additional:hover {
+    -webkit-filter: brightness(95%);
+}
+.access:hover {
+    -webkit-filter: brightness(95%);
+}
+.noti:hover {
+    -webkit-filter: brightness(95%);
+}
+.privacy:hover {
+    -webkit-filter: brightness(95%);
+}
+.security:hover {
+    -webkit-filter: brightness(95%);
+}
+
+
+
+.column-three {
+    border-left: 1px solid #d5d3d3;
+    opacity: 20%;
+    height: 710px;
+    position: relative;
+    bottom: 2390px;
+    left: 1295px;
+  }
+
+  .acc {
+    position: relative;
+    bottom: 2985px;
+    left: 697px;
+    width: 156px;
+    cursor:text;
+  }
+
+  .info {
+    position: relative;
+    bottom: 2930px;
+    left: 545px;
+    width: 590px;
+    cursor:text;
+  }
+
+  .accinfo {
+    position: relative;
+    bottom: 2923px;
+    left: 697px;
+    width: 600px;
+    cursor: pointer;
+    background: rgb(217, 215, 215);
+  }
+  .accinfo:hover {
+    -webkit-filter: brightness(95%);
+}
+
+.pass {
+    position: relative;
+    bottom: 2850px;
+    left: 92px;
+    width: 600px;
+    cursor: pointer;
+    background: rgb(217, 215, 215);
+  }
+  .pass:hover {
+    -webkit-filter: brightness(95%);
+}
+
+.download {
+    position: relative;
+    bottom: 2840px;
+    left: 696px;
+    width: 600px;
+    cursor: pointer;
+    background: rgb(217, 215, 215);
+  }
+  .download:hover {
+    -webkit-filter: brightness(95%);
+}
+
+.tweetdeck {
+    position: relative;
+    bottom: 2775px;
+    left: 90px;
+    width: 605px;
+    cursor: pointer;
+    background: rgb(217, 215, 215);
+  }
+  .tweetdeck:hover {
+    -webkit-filter: brightness(95%);
+}
+
+.deactivate {
+    position: relative;
+    bottom: 2770px;
+    left: 694px;
+    width: 605px;
+    cursor: pointer;
+    background: rgb(217, 215, 215);
+  }
+  .deactivate:hover {
+    -webkit-filter: brightness(95%);
+}
+
+.mess {
+    position: relative;
+    top: -3314px;
+    left: 904px;
+    width: 417px;
+    cursor: pointer;
+
+  }
