@@ -18,4 +18,4 @@ Created clone of a E-commerce Website (Amazon) using HTML, CSS and JavaScript.
 
 
 ## Shopping Cart Page
-![This is the Shopping Cart Page]([https://github.com/AdyaTech/Front-End-Web-Development/blob/main/JavaScript/Blog%20Website%20Clone/Privacy%20Policy%20Page/Privacy%20Page.png](https://github.com/AdyaTech/Front-End-Web-Development/blob/main/JavaScript/E-commerce%20Website%20Clone/Shopping%20Cart%20Page/Amazon%20Shopping%20Cart.png)https://github.com/AdyaTech/Front-End-Web-Development/blob/main/JavaScript/E-commerce%20Website%20Clone/Shopping%20Cart%20Page/Amazon%20Shopping%20Cart.png)
+![This is the Shopping Cart Page](https://github.com/AdyaTech/Front-End-Web-Development/blob/main/JavaScript/Blog%20Website%20Clone/Privacy%20Policy%20Page/Privacy%20Page.png](https://github.com/AdyaTech/Front-End-Web-Development/blob/main/JavaScript/E-commerce%20Website%20Clone/Shopping%20Cart%20Page/Amazon%20Shopping%20Cart.png)https://github.com/AdyaTech/Front-End-Web-Development/blob/main/JavaScript/E-commerce%20Website%20Clone/Shopping%20Cart%20Page/Amazon%20Shopping%20Cart.png)
