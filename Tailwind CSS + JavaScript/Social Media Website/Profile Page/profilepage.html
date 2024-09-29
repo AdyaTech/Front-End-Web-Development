@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en_US">
+
+<head>
+    <style id="draftjs-styles_0">
+        .draftjs-styles_0 .public-DraftEditorPlaceholder-root {
+            color: #536471;
+        }
+
+        .draftjs-styles_0 .public-DraftEditorPlaceholder-hasFocus {
+            color: #536471;
+        }
+    </style>
+    <style id="draftjs-styles">
+        .DraftEditor-editorContainer,
+        .DraftEditor-root,
+        .public-DraftEditor-content {
+            height: inherit;
+            max-height: inherit;
+            min-height: inherit;
+            text-align: initial;
+        }
+
+        .public-DraftEditor-content[contenteditable=true] {
+            -moz-user-modify: read-write-plaintext-only;
+            -webkit-user-modify: read-write-plaintext-only;
+        }
+
+        .format-inline .public-DraftEditor-content[contenteditable=true] {
+            -moz-user-modify: read-write;
+            -webkit-user-modify: read-write;
+        }
+
+        .DraftEditor-root {
+            width: 100%;
+            position: relative;
+            -webkit-user-select: none;
+        }
+
+        .DraftEditor-editorContainer {
+            background-color: rgba(255, 255, 255, 0);
+            border-left: .1px solid transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .public-DraftEditor-block {
+            position: relative;
+        }
+
+        .DraftEditor-alignLeft .public-DraftStyleDefault-block {
+            text-align: left;
+        }
+
+        .DraftEditor-alignLeft .public-DraftEditorPlaceholder-root {
+            left: 0;
+            text-align: left;
+        }
+
+        .DraftEditor-alignCenter .public-DraftStyleDefault-block {
+            text-align: center
+        }
+
+        .DraftEditor-alignCenter .public-DraftEditorPlaceholder-root {
+            margin: 0 auto;
+            text-align: center;
+            width: 100%
+        }
+
+        .DraftEditor-alignRight .public-DraftStyleDefault-block {
+            text-align: right;
+        }
+
+        .DraftEditor-alignRight .public-DraftEditorPlaceholder-root {
+            right: 0;
+            text-align: right;
+        }
+
+        .public-DraftEditorPlaceholder-root {
+            padding-bottom: 2px;
+            padding-top: 2px;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .public-DraftEditorPlaceholder-inner {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .DraftEditorPlaceholder-hidden {
+            display: none;
+        }
+
+        .public-DraftStyleDefault-block {
+            overflow: hidden;
+            padding-bottom: 2px;
+            padding-top: 2px;
+            position: relative;
+            white-space: pre-wrap;
+        }
+
+        /* Only a handful of CSS rules work on br tags and user-select isn't one */
+        div:only-child>.public-DraftStyleDefault-block br::selection {
+            background: transparent;
+        }
+
+        /*
+           Safari doesn't let you change ::selection on br elements,
+           but Chrome needs it here
+        */
+        div:only-child>.public-DraftStyleDefault-block::selection {
+            background: transparent;
+        }
+
+        .public-DraftStyleDefault-ltr {
+            direction: ltr;
+            text-align: left;
+        }
+
+        .public-DraftStyleDefault-rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        .DraftEditor-editorContainer a {
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            margin-bottom: inherit;
+            margin-top: inherit;
+        }
+
+        .singleline .public-DraftStyleDefault-block {
+            overflow-x: auto;
+            scrollbar-width: none;
+            white-space: nowrap;
+            -ms-overflow-style: none;
+        }
+
+        .singleline .public-DraftStyleDefault-block::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <style>
+        input::placeholder {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        iframe {
+            color-scheme: auto;
+        }
+    </style>
+    <style>
+        @font-face {
+            font-family: TwitterChirp;
+            src: url(https://abs.twimg.com/responsive-web/client-web/Chirp-Light.3a18e64a.woff2) format('woff2'), url(https://abs.twimg.com/responsive-web/client-web/Chirp-Light.7a5673aa.woff) format('woff');
+            font-weight: 300;
+            font-style: 'normal';
+            font-display: 'swap';
+        }
+
+        @font-face {
+            font-family: TwitterChirp;
+            src: url(https://abs.twimg.com/responsive-web/client-web/Chirp-Regular.80fda27a.woff2) format('woff2'), url(https://abs.twimg.com/responsive-web/client-web/Chirp-Regular.60b215ba.woff) format('woff');
+            font-weight: 400;
+            font-style: 'normal';
+            font-display: 'swap';
+        }
+
+        @font-face {
+            font-family: TwitterChirp;
+            src: url(https://abs.twimg.com/responsive-web/client-web/Chirp-Medium.f8e2739a.woff2) format('woff2'), url(https://abs.twimg.com/responsive-web/client-web/Chirp-Medium.20fc288a.woff) format('woff');
+            font-weight: 500;
+            font-style: 'normal';
+            font-display: 'swap';
+        }
+
+        @font-face {
+            font-family: TwitterChirp;
+            src: url(https://abs.twimg.com/responsive-web/client-web/Chirp-Bold.ebb56aba.woff2) format('woff2'), url(https://abs.twimg.com/responsive-web/client-web/Chirp-Bold.a573679a.woff) format('woff');
+            font-weight: 700;
+            font-style: 'normal';
+            font-display: 'swap';
+        }
+
+        @font-face {
+            font-family: TwitterChirp;
+            src: url(https://abs.twimg.com/responsive-web/client-web/Chirp-Heavy.f44ae4ea.woff2) format('woff2'), url(https://abs.twimg.com/responsive-web/client-web/Chirp-Heavy.d70ec7ca.woff) format('woff');
+            font-weight: 800;
+            font-style: 'normal';
+            font-display: 'swap';
+        }
+
+        @font-face {
+            font-family: TwitterChirpExtendedHeavy;
+            src: url(https://abs.twimg.com/fonts/v1/chirp-extended-heavy-web.woff2) format('woff2'), url(https://abs.twimg.com/fonts/v1/chirp-extended-heavy-web.woff) format('woff');
+            font-weight: 800;
+            font-style: 'normal';
+            font-display: 'swap';
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
+    <link rel="preconnect" href="//abs.twimg.com">
+    <link rel="dns-prefetch" href="//abs.twimg.com">
+    <link rel="preconnect" href="//api.twitter.com">
+    <link rel="dns-prefetch" href="//api.twitter.com">
+    <link rel="preconnect" href="//api.x.com">
+    <link rel="dns-prefetch" href="//api.x.com">
+    <link rel="preconnect" href="//pbs.twimg.com">
+    <link rel="dns-prefetch" href="//pbs.twimg.com">
+    <link rel="preconnect" href="//t.co">
+    <link rel="dns-prefetch" href="//t.co">
+    <link rel="preconnect" href="//video.twimg.com">
+    <link rel="dns-prefetch" href="//video.twimg.com">
+    <link nonce="" rel="preload" as="script" crossorigin="anonymous"
+        href="https://abs.twimg.com/responsive-web/client-web/vendor.1b81224a.js">
+    <link nonce="" rel="preload" as="script" crossorigin="anonymous"
+        href="https://abs.twimg.com/responsive-web/client-web/i18n/en.55a3270a.js">
+    <link nonce="" rel="preload" as="script" crossorigin="anonymous"
+        href="https://abs.twimg.com/responsive-web/client-web/main.3c06e8ca.js">
+    <meta http-equiv="onion-location" content="https://twitter3e4tixl4xyajtrzo62zg5vztmjuricljdp2c5kshju4avyoid.onion/">
+    <meta property="fb:app_id" content="2231777543">
+    <meta content="X (formerly Twitter)" property="og:site_name">
+    <meta name="google-site-verification" content="600dQ0pZYsH2xOFt4hYmf5f5NpjCbWE_qk5Y04dErYM">
+    <meta name="facebook-domain-verification" content="x6sdcc8b5ju3bh8nbm59eswogvg6t1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Twitter">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Twitter">
+    <link rel="apple-touch-icon" sizes="192x192"
+        href="https://abs.twimg.com/responsive-web/client-web/icon-ios.77d25eba.png">
+    <meta name="twitter-site-verification" content="GKU5xaSn30I5D8pVqi5JAJBWEAdOehu4m25Fi+Dg6xgB6vfGVoD8bhwyYB6664em">
+    <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Twitter">
+    <link rel="mask-icon" sizes="any" href="https://abs.twimg.com/responsive-web/client-web/icon-svg.ea5ff4aa.svg"
+        color="#1D9BF0">
+    <link rel="shortcut icon" href="//abs.twimg.com/favicons/twitter.3.ico">
+    <meta name="theme-color" media="undefined" content="#FFFFFF">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+    <meta http-equiv="origin-trial"
+        content="AlpCmb40F5ZjDi9ZYe+wnr/V8MF+XmY41K4qUhoq+2mbepJTNd3q4CRqlACfnythEPZqcjryfAS1+ExS0FFRcA8AAABmeyJvcmlnaW4iOiJodHRwczovL3R3aXR0ZXIuY29tOjQ0MyIsImZlYXR1cmUiOiJMYXVuY2ggSGFuZGxlciIsImV4cGlyeSI6MTY1NTI1MTE5OSwiaXNTdWJkb21haW4iOnRydWV9">
+
+    <link rel="stylesheet" href="stylesheetone.css">
+    <link rel="stylesheet" href="Profile Page.css">
+
+    <title>Adya (@AdyaTech) / X</title>
+    <link href="https://twitter.com/home" rel="canonical" data-rh="true">
+    <link href="https://twitter.com/home" hreflang="x-default" rel="alternate" data-rh="true">
+    <meta content="Home / X" property="og:title" data-rh="true">
+    <style type="text/css" data-rbd-always="0">
+        [data-rbd-drag-handle-context-id="0"] {
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            touch-action: manipulation;
+        }
+
+        [data-rbd-droppable-context-id="0"] {
+            overflow-anchor: none;
+        }
+    </style>
+    <style type="text/css" data-rbd-dynamic="0">
+        [data-rbd-drag-handle-context-id="0"] {
+            cursor: -webkit-grab;
+            cursor: grab;
+        }
+    </style>
+    <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Adya (@AdyaTech) / X</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="Home Page.css" type="text/css" />
+</head>
+
+<body>
+    <!-- PART ONE OF WEBPAGE -->
+    <div class="column-one"></div>
+
+
+    <!-- VERTICAL NAVIGATION BAR OF WEBPAGE -->
+    <div class="scroll" style="width: 268px; position: relative; bottom: 690px; left: 45px;"
+        class="css-175oi2r r-15zivkp r-1bymd8e r-13qz1uu">
+        <nav style=" width: 220px;" aria-label="Primary" role="navigation" class="css-175oi2r r-eqz5dr r-1habvwh">
+
+            <!-- ICON OF WEBPAGE -->
+
+            <div dir="ltr" id="homer"
+                class="css-1rynq56 r-bcqeeo r-qvutc0 r-37j5jr r-q4m81j r-a023e6 r-rjixqe r-b88u0q r-1awozwy r-6koalj r-18u37iz r-16y2uox r-1777fci"
+                style="color: rgb(15, 20, 25); text-overflow: unset; position: relative; left: 5px; top: 10px;"><svg
+                    style="width: 40px; height: 30px;" viewBox="0 0 24 24" aria-hidden="true"
+                    class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-lrsllp r-18jsvk2 r-16y2uox r-8kz0gk">
+                    <g>
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                        </path>
+                    </g>
+                </svg><span
+                    class="css-1qaijid r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-poiln3 r-1inkyih r-rjixqe"
+                    style="text-overflow: unset;"></span></div>
+
+            <!-- START OF HOME ICON -->
+            <a style="position: relative; top: 25px;" href="" aria-label="Home" role="link"
+                class="css-175oi2r r-6koalj r-eqz5dr r-16y2uox r-1habvwh r-13qz1uu r-rjfia r-1ny4l3l r-1loqt21"
+                data-testid="AppTabBar_Home_Link">
+                <div id="home"
+                    class="css-175oi2r r-sdzlij r-dnmrzs r-1awozwy r-18u37iz r-1777fci r-xyw6el r-o7ynqc r-6416eg">
+                    <div class="css-175oi2r"><svg viewBox="0 0 24 24" aria-hidden="true"
+                            class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-18jsvk2 r-lwhw9o r-cnnz9e">
+                            <g>
+                                <path
+                                    d="M21.591 7.146L12.52 1.157c-.316-.21-.724-.21-1.04 0l-9.071 5.99c-.26.173-.409.456-.409.757v13.183c0 .502.418.913.929.913h6.638c.511 0 .929-.41.929-.913v-7.075h3.008v7.075c0 .502.418.913.929.913h6.639c.51 0 .928-.41.928-.913V7.904c0-.301-.158-.584-.408-.758zM20 20l-4.5.01.011-7.097c0-.502-.418-.913-.928-.913H9.44c-.511 0-.929.41-.929.913L8.5 20H4V8.773l8.011-5.342L20 8.764z">
+                                </path>
+                            </g>
+                        </svg></div>
+                    <div dir="ltr"
+                        class="css-1rynq56 r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-88pszg r-1joea0r"
+                        style="text-overflow: unset; color: rgb(15, 20, 25);"><span
+                            class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3" style="text-overflow: unset;">Home</span>
+                    </div>
+                </div>
+            </a>
+            <!-- END OF HOME ICON -->
+
+            <!-- START OF EXPLORE ICON -->
+            <a style="position: relative; top: 25px;" href="" aria-label="Search and explore" role="link"
+                class="css-175oi2r r-6koalj r-eqz5dr r-16y2uox r-1habvwh r-13qz1uu r-rjfia r-1ny4l3l r-1loqt21"
+                data-testid="AppTabBar_Explore_Link">
+                <div id="home"
+                    class="css-175oi2r r-sdzlij r-dnmrzs r-1awozwy r-18u37iz r-1777fci r-xyw6el r-o7ynqc r-6416eg">
+                    <div class="css-175oi2r"><svg viewBox="0 0 24 24" aria-hidden="true"
+                            class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-18jsvk2 r-lwhw9o r-cnnz9e">
+                            <g>
+                                <path
+                                    d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.682 3.815-1.824 5.262l4.781 4.781-1.414 1.414-4.781-4.781c-1.447 1.142-3.276 1.824-5.262 1.824-4.694 0-8.5-3.806-8.5-8.5z">
+                                </path>
+                            </g>
+                        </svg></div>
+                    <div dir="ltr"
+                        class="css-1rynq56 r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-88pszg r-1joea0r"
+                        style="text-overflow: unset; color: rgb(15, 20, 25);"><span
+                            class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3" style="text-overflow: unset;">Explore</span>
+                    </div>
+                </div>
+            </a>
+            <!-- END OF EXPLORE ICON -->
+
+            <!-- START OF NOTIFICATION ICON -->
+            <a style="position: relative; top: 25px;" href="" aria-label="Notifications" role="link"
+                class="css-175oi2r r-6koalj r-eqz5dr r-16y2uox r-1habvwh r-13qz1uu r-rjfia r-1ny4l3l r-1loqt21"
+                data-testid="AppTabBar_Notifications_Link">
+                <div id="home"
+                    class="css-175oi2r r-sdzlij r-dnmrzs r-1awozwy r-18u37iz r-1777fci r-xyw6el r-o7ynqc r-6416eg">
+                    <div class="css-175oi2r"><svg viewBox="0 0 24 24" aria-hidden="true"
+                            class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-18jsvk2 r-lwhw9o r-cnnz9e">
+                            <g>
+                                <path
+                                    d="M19.993 9.042C19.48 5.017 16.054 2 11.996 2s-7.49 3.021-7.999 7.051L2.866 18H7.1c.463 2.282 2.481 4 4.9 4s4.437-1.718 4.9-4h4.236l-1.143-8.958zM12 20c-1.306 0-2.417-.835-2.829-2h5.658c-.412 1.165-1.523 2-2.829 2zm-6.866-4l.847-6.698C6.364 6.272 8.941 4 11.996 4s5.627 2.268 6.013 5.295L18.864 16H5.134z">
+                                </path>
+                            </g>
+                        </svg></div>
+                    <div dir="ltr"
+                        class="css-1rynq56 r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-88pszg r-1joea0r"
+                        style="text-overflow: unset; color: rgb(15, 20, 25);"><span
+                            class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3"
+                            style="text-overflow: unset;">Notifications</span></div>
+                </div>
+            </a>
+            <!-- END OF NOTIFICATION ICON -->
+
+            <!-- START OF MESSAGE ICON -->
+            <a style="position: relative; top: 25px;" href="" aria-label="Direct Messages" role="link"
+                class="css-175oi2r r-6koalj r-eqz5dr r-16y2uox r-1habvwh r-13qz1uu r-rjfia r-1ny4l3l r-1loqt21"
+                data-testid="AppTabBar_DirectMessage_Link">
+                <div id="home"
+                    class="css-175oi2r r-sdzlij r-dnmrzs r-1awozwy r-18u37iz r-1777fci r-xyw6el r-o7ynqc r-6416eg">
+                    <div class="css-175oi2r"><svg viewBox="0 0 24 24" aria-hidden="true"
+                            class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-18jsvk2 r-lwhw9o r-cnnz9e">
+                            <g>
+                                <path
+                                    d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.037z">
+                                </path>
+                            </g>
+                        </svg></div>
+                    <div dir="ltr"
+                        class="css-1rynq56 r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-88pszg r-1joea0r"
+                        style="text-overflow: unset; color: rgb(15, 20, 25);"><span
+                            class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3" style="text-overflow: unset;">Messages</span>
+                    </div>
+                </div>
+            </a>
+            <!-- END OF MESSAGE ICON -->
+
+            <!-- START OF GROK ICON -->
+            <a style="position: relative; top: 25px;" href="" aria-label="Grok" role="link"
+                class="css-175oi2r r-6koalj r-eqz5dr r-16y2uox r-1habvwh r-13qz1uu r-rjfia r-1ny4l3l r-1loqt21">
+                <div id="home"
+                    class="css-175oi2r r-sdzlij r-dnmrzs r-1awozwy r-18u37iz r-1777fci r-xyw6el r-o7ynqc r-6416eg">
+                    <div class="css-175oi2r"><svg viewBox="0 0 24 24" aria-hidden="true"
+                            class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-18jsvk2 r-lwhw9o r-cnnz9e">
+                            <g>
+                                <g clip-path="url(#0-clip0_2592_269)" clip-rule="evenodd">
+                                    <path
+                                        d="M4.2 4.2v15.6h15.6V4.2H4.2zM3 2h18c.552 0 1 .448 1 1v18c0 .552-.448 1-1 1H3c-.552 0-1-.448-1-1V3c0-.552.448-1 1-1z">
+                                    </path>
+                                    <path d="M6.68 17.8l8.108-11.58h2.532L9.21 17.8H6.68z"></path>
+                                </g>
+                                <defs>
+                                    <clipPath id="0-clip0_2592_269">
+                                        <rect height="20" rx="1" width="20" x="2" y="2"></rect>
+                                    </clipPath>
+                                </defs>
+                            </g>
+                        </svg></div>
+                    <div dir="ltr"
+                        class="css-1rynq56 r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-88pszg r-1joea0r"
+                        style="text-overflow: unset; color: rgb(15, 20, 25);"><span
+                            class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3" style="text-overflow: unset;">Grok</span>
+                    </div>
+                </div>
+            </a>
+            <!-- END OF GROK ICON -->
+
+            <!-- START OF LIST ICON -->
+            <a style="position: relative; top: 25px;" href="" aria-label="Lists" role="link"
+                class="css-175oi2r r-6koalj r-eqz5dr r-16y2uox r-1habvwh r-13qz1uu r-rjfia r-1ny4l3l r-1loqt21">
+                <div id="home"
+                    class="css-175oi2r r-sdzlij r-dnmrzs r-1awozwy r-18u37iz r-1777fci r-xyw6el r-o7ynqc r-6416eg">
+                    <div class="css-175oi2r"><svg viewBox="0 0 24 24" aria-hidden="true"
+                            class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-18jsvk2 r-lwhw9o r-cnnz9e">
+                            <g>
+                                <path
+                                    d="M3 4.5C3 3.12 4.12 2 5.5 2h13C19.88 2 21 3.12 21 4.5v15c0 1.38-1.12 2.5-2.5 2.5h-13C4.12 22 3 20.88 3 19.5v-15zM5.5 4c-.28 0-.5.22-.5.5v15c0 .28.22.5.5.5h13c.28 0 .5-.22.5-.5v-15c0-.28-.22-.5-.5-.5h-13zM16 10H8V8h8v2zm-8 2h8v2H8v-2z">
+                                </path>
+                            </g>
+                        </svg></div>
+                    <div dir="ltr"
+                        class="css-1rynq56 r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-88pszg r-1joea0r"
+                        style="text-overflow: unset; color: rgb(15, 20, 25);"><span
+                            class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3" style="text-overflow: unset;">Lists</span>
+                    </div>
+                </div>
+            </a>
+            <!-- END OF LIST ICON -->
+
+            <!-- START OF BOOKMARK ICON -->
+            <a style="position: relative; top: 25px;" href="" aria-label="Bookmarks" role="link"
+                class="css-175oi2r r-6koalj r-eqz5dr r-16y2uox r-1habvwh r-13qz1uu r-rjfia r-1ny4l3l r-1loqt21">
+                <div id="home"
+                    class="css-175oi2r r-sdzlij r-dnmrzs r-1awozwy r-18u37iz r-1777fci r-xyw6el r-o7ynqc r-6416eg">
+                    <div class="css-175oi2r"><svg viewBox="0 0 24 24" aria-hidden="true"
+                            class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-18jsvk2 r-lwhw9o r-cnnz9e">
+                            <g>
+                                <path
+                                    d="M4 4.5C4 3.12 5.119 2 6.5 2h11C18.881 2 20 3.12 20 4.5v18.44l-8-5.71-8 5.71V4.5zM6.5 4c-.276 0-.5.22-.5.5v14.56l6-4.29 6 4.29V4.5c0-.28-.224-.5-.5-.5h-11z">
+                                </path>
+                            </g>
+                        </svg></div>
+                    <div dir="ltr"
+                        class="css-1rynq56 r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-88pszg r-1joea0r"
+                        style="text-overflow: unset; color: rgb(15, 20, 25);"><span
+                            class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3"
+                            style="text-overflow: unset;">Bookmarks</span></div>
+                </div>
+            </a>
+            <!-- END OF BOOKMARK ICON -->
+
+            <!-- START OF PREMIUM ICON -->
+            <a style="position: relative; top: 25px;" href="" aria-label="Premium+" role="link"
+                class="css-175oi2r r-6koalj r-eqz5dr r-16y2uox r-1habvwh r-13qz1uu r-rjfia r-1ny4l3l r-1loqt21">
+                <div id="home"
+                    class="css-175oi2r r-sdzlij r-dnmrzs r-1awozwy r-18u37iz r-1777fci r-xyw6el r-o7ynqc r-6416eg">
+                    <div class="css-175oi2r"><svg viewBox="0 0 24 24" aria-hidden="true"
+                            class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-18jsvk2 r-lwhw9o r-cnnz9e">
+                            <g>
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                                </path>
+                            </g>
+                        </svg></div>
+                    <div dir="ltr"
+                        class="css-1rynq56 r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-88pszg r-1joea0r"
+                        style="text-overflow: unset; color: rgb(15, 20, 25);"><span
+                            class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3" style="text-overflow: unset;">Premium+</span>
+                    </div>
+                </div>
+            </a>
+            <!-- END OF PREMIUM ICON -->
+
+            <!-- START OF COMMUNITY ICON -->
+            <a style="position: relative; top: 25px;" href="" aria-label="Communities" role="link"
+                class="css-175oi2r r-6koalj r-eqz5dr r-16y2uox r-1habvwh r-13qz1uu r-rjfia r-1ny4l3l r-1loqt21">
+                <div id="home"
+                    class="css-175oi2r r-sdzlij r-dnmrzs r-1awozwy r-18u37iz r-1777fci r-xyw6el r-o7ynqc r-6416eg">
+                    <div class="css-175oi2r"><svg viewBox="0 0 24 24" aria-hidden="true"
+                            class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-18jsvk2 r-lwhw9o r-cnnz9e">
+                            <g>
+                                <path
+                                    d="M7.501 19.917L7.471 21H.472l.029-1.027c.184-6.618 3.736-8.977 7-8.977.963 0 1.95.212 2.87.672-.444.478-.851 1.03-1.212 1.656-.507-.204-1.054-.329-1.658-.329-2.767 0-4.57 2.223-4.938 6.004H7.56c-.023.302-.05.599-.059.917zm15.998.056L23.528 21H9.472l.029-1.027c.184-6.618 3.736-8.977 7-8.977s6.816 2.358 7 8.977zM21.437 19c-.367-3.781-2.17-6.004-4.938-6.004s-4.57 2.223-4.938 6.004h9.875zm-4.938-9c-.799 0-1.527-.279-2.116-.73-.836-.64-1.384-1.638-1.384-2.77 0-1.93 1.567-3.5 3.5-3.5s3.5 1.57 3.5 3.5c0 1.132-.548 2.13-1.384 2.77-.589.451-1.317.73-2.116.73zm-1.5-3.5c0 .827.673 1.5 1.5 1.5s1.5-.673 1.5-1.5-.673-1.5-1.5-1.5-1.5.673-1.5 1.5zM7.5 3C9.433 3 11 4.57 11 6.5S9.433 10 7.5 10 4 8.43 4 6.5 5.567 3 7.5 3zm0 2C6.673 5 6 5.673 6 6.5S6.673 8 7.5 8 9 7.327 9 6.5 8.327 5 7.5 5z">
+                                </path>
+                            </g>
+                        </svg></div>
+                    <div dir="ltr"
+                        class="css-1rynq56 r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-88pszg r-1joea0r"
+                        style="text-overflow: unset; color: rgb(15, 20, 25);"><span
+                            class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3"
+                            style="text-overflow: unset;">Communities</span></div>
+                </div>
+            </a>
+            <!-- END OF COMMUNITY ICON -->
+
+            <!-- START OF VERIFIED ICON -->
+            <a style="position: relative; top: 25px;" href="" aria-label="Verified Orgs" role="link"
+                class="css-175oi2r r-6koalj r-eqz5dr r-16y2uox r-1habvwh r-13qz1uu r-rjfia r-1ny4l3l r-1loqt21">
+                <div id="home"
+                    class="css-175oi2r r-sdzlij r-dnmrzs r-1awozwy r-18u37iz r-1777fci r-xyw6el r-o7ynqc r-6416eg">
+                    <div class="css-175oi2r"><svg viewBox="0 0 24 24" aria-hidden="true"
+                            class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-18jsvk2 r-lwhw9o r-cnnz9e">
+                            <g>
+                                <path
+                                    d="M7.323 2h11.443l-3 5h6.648L6.586 22.83 7.847 14H2.523l4.8-12zm1.354 2l-3.2 8h4.676l-.739 5.17L17.586 9h-5.352l3-5H8.677z">
+                                </path>
+                            </g>
+                        </svg></div>
+                    <div dir="ltr"
+                        class="css-1rynq56 r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-88pszg r-1joea0r"
+                        style="text-overflow: unset; color: rgb(15, 20, 25);"><span
+                            class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3" style="text-overflow: unset;">Verified
+                            Orgs</span></div>
+                </div>
+            </a>
+            <!-- END OF VERIFIED ICON -->
+
+            <!-- START OF PROFILE ICON -->
+            <a style="position: relative; top: 25px;" href="" aria-label="Profile" role="link"
+                class="css-175oi2r r-6koalj r-eqz5dr r-16y2uox r-1habvwh r-13qz1uu r-rjfia r-1ny4l3l r-1loqt21"
+                data-testid="AppTabBar_Profile_Link">
+                <div id="home"
+                    class="css-175oi2r r-sdzlij r-dnmrzs r-1awozwy r-18u37iz r-1777fci r-xyw6el r-o7ynqc r-6416eg">
+                    <div class="css-175oi2r"><svg viewBox="0 0 24 24" aria-hidden="true"
+                            class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-18jsvk2 r-lwhw9o r-cnnz9e">
+                            <g>
+                                <path
+                                    d="M5.651 19h12.698c-.337-1.8-1.023-3.21-1.945-4.19C15.318 13.65 13.838 13 12 13s-3.317.65-4.404 1.81c-.922.98-1.608 2.39-1.945 4.19zm.486-5.56C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46zM12 4c-1.105 0-2 .9-2 2s.895 2 2 2 2-.9 2-2-.895-2-2-2zM8 6c0-2.21 1.791-4 4-4s4 1.79 4 4-1.791 4-4 4-4-1.79-4-4z">
+                                </path>
+                            </g>
+                        </svg></div>
+                    <div dir="ltr"
+                        class="css-1rynq56 r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-88pszg r-1joea0r"
+                        style="text-overflow: unset; color: rgb(15, 20, 25);"><span
+                            class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3" style="text-overflow: unset;">Profile</span>
+                    </div>
+                </div>
+            </a>
+            <!-- END OF PROFILE ICON -->
+
+            <!-- START OF MORE ICON -->
+            <div style="position: relative; top: 25px;" aria-expanded="false" aria-haspopup="menu"
+                aria-label="More menu items" role="button" tabindex="0"
+                class="css-175oi2r r-6koalj r-eqz5dr r-16y2uox r-1habvwh r-13qz1uu r-rjfia r-1loqt21 r-1ny4l3l"
+                data-testid="AppTabBar_More_Menu">
+                <div id="home"
+                    class="css-175oi2r r-sdzlij r-dnmrzs r-1awozwy r-18u37iz r-1777fci r-xyw6el r-o7ynqc r-6416eg">
+                    <div class="css-175oi2r"><svg viewBox="0 0 24 24" aria-hidden="true"
+                            class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-18jsvk2 r-lwhw9o r-cnnz9e">
+                            <g>
+                                <path
+                                    d="M3.75 12c0-4.56 3.69-8.25 8.25-8.25s8.25 3.69 8.25 8.25-3.69 8.25-8.25 8.25S3.75 16.56 3.75 12zM12 1.75C6.34 1.75 1.75 6.34 1.75 12S6.34 22.25 12 22.25 22.25 17.66 22.25 12 17.66 1.75 12 1.75zm-4.75 11.5c.69 0 1.25-.56 1.25-1.25s-.56-1.25-1.25-1.25S6 11.31 6 12s.56 1.25 1.25 1.25zm9.5 0c.69 0 1.25-.56 1.25-1.25s-.56-1.25-1.25-1.25-1.25.56-1.25 1.25.56 1.25 1.25 1.25zM13.25 12c0 .69-.56 1.25-1.25 1.25s-1.25-.56-1.25-1.25.56-1.25 1.25-1.25 1.25.56 1.25 1.25z">
+                                </path>
+                            </g>
+                        </svg></div>
+                    <div dir="ltr"
+                        class="css-1rynq56 r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-37j5jr r-adyw6z r-135wba7 r-16dba41 r-88pszg r-1joea0r"
+                        style="color: rgb(15, 20, 25); text-overflow: unset;"><span
+                            class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3" style="text-overflow: unset;">More</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- END OF MORE ICON -->
+
+
+        <!-- START OF POST BUTTON -->
+        <div id="hover" style=" position: relative; top: 35px;" class="css-175oi2r r-1p6iasa r-e7q0ms"><a href=""
+                aria-label="Post" role="link"
+                class="css-175oi2r r-sdzlij r-1phboty r-rs99b7 r-lrvibr r-1waj6vr r-19yznuf r-64el8z r-1dye5f7 r-o7ynqc r-6416eg r-1ny4l3l r-1loqt21"
+                data-testid="SideNav_NewTweet_Button"
+                style="border-color: rgba(0, 0, 0, 0); background-color: rgb(29, 155, 240); width: 200px;">
+                <div dir="ltr"
+                    class="css-1rynq56 r-bcqeeo r-qvutc0 r-37j5jr r-q4m81j r-a023e6 r-rjixqe r-b88u0q r-1awozwy r-6koalj r-18u37iz r-16y2uox r-1777fci"
+                    style="color: rgb(255, 255, 255); text-overflow: unset;"><span
+                        class="css-1qaijid r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-poiln3 r-1inkyih r-rjixqe"
+                        style="text-overflow: unset;">
+                        <div style="">
+                            <div class="css-175oi2r r-xoduu5"><span class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3"
+                                    style="text-overflow: unset;"><span class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3"
+                                        style="text-overflow: unset;">Post</span></span></div>
+                        </div>
+                    </span></div>
+            </a></div>
+        <!-- END OF POST BUTTON -->
+
+        <!-- START OF ADYATECH BUTTON -->
+        <div id="hover" class="css-175oi2r r-usiww2" style="position: relative; top: 35px;">
+            <div class="css-175oi2r">
+                <div aria-label="Account menu" role="button" tabindex="0"
+                    class="css-175oi2r r-1awozwy r-sdzlij r-6koalj r-18u37iz r-xyw6el r-1loqt21 r-o7ynqc r-6416eg r-1ny4l3l"
+                    data-testid="SideNav_AccountSwitcher_Button">
+                    <div class="css-175oi2r">
+                        <div class="css-175oi2r r-1adg3ll r-bztko3" data-testid="UserAvatar-Container-AdyaTech"
+                            style="width: 40px; height: 40px; ">
+                            <div class="r-1adg3ll r-13qz1uu" style="padding-bottom: 100%;"></div>
+                            <div class="r-1p0dtai r-1pi2tsx r-u8s1d r-1d2f490 r-ipm5af r-13qz1uu">
+                                <div
+                                    class="css-175oi2r r-1adg3ll r-1pi2tsx r-13qz1uu r-u8s1d r-1wyvozj r-1v2oles r-desppf r-bztko3">
+                                    <div class="r-1adg3ll r-13qz1uu" style="padding-bottom: 100%;"></div>
+                                    <div class="r-1p0dtai r-1pi2tsx r-u8s1d r-1d2f490 r-ipm5af r-13qz1uu">
+                                        <div class="css-175oi2r r-sdzlij r-1udh08x r-u8s1d r-ggadg3 r-8jfcpp"
+                                            style="width: calc(100% + 4px); height: calc(100% + 4px);">
+                                            <div role="presentation" class="css-175oi2r r-1pi2tsx r-13qz1uu r-1ny4l3l"
+                                                style="background-color: rgba(0, 0, 0, 0);">
+                                                <div class="css-175oi2r r-sdzlij r-1udh08x r-633pao r-u8s1d r-1wyvozj r-1v2oles r-desppf"
+                                                    style="width: calc(100% - 4px); height: calc(100% - 4px);">
+                                                    <div class="css-175oi2r r-1pi2tsx r-13qz1uu"
+                                                        style="background-color: rgba(0, 0, 0, 0);"></div>
+                                                </div>
+                                                <div class="css-175oi2r r-sdzlij r-1udh08x r-633pao r-u8s1d r-1wyvozj r-1v2oles r-desppf"
+                                                    style="width: calc(100% - 4px); height: calc(100% - 4px);">
+                                                    <div class="css-175oi2r r-1pi2tsx r-13qz1uu r-14lw9ot"></div>
+                                                </div>
+                                                <div class="css-175oi2r r-sdzlij r-1udh08x r-633pao r-u8s1d r-1wyvozj r-1v2oles r-desppf"
+                                                    style="background-color: rgb(255, 255, 255); width: calc(100% - 4px); height: calc(100% - 4px);">
+                                                    <div class="css-175oi2r r-1adg3ll r-1udh08x" style="">
+                                                        <div class="r-1adg3ll r-13qz1uu" style="padding-bottom: 100%;">
+                                                        </div>
+                                                        <div
+                                                            class="r-1p0dtai r-1pi2tsx r-u8s1d r-1d2f490 r-ipm5af r-13qz1uu">
+                                                            <div aria-label="Adya"
+                                                                class="css-175oi2r r-1mlwlqe r-1udh08x r-417010"
+                                                                style="position: absolute; inset: 0px;">
+                                                                <div class="css-175oi2r r-1niwhzg r-vvn4in r-u6sd8q r-1p0dtai r-1pi2tsx r-1d2f490 r-u8s1d r-zchlnj r-ipm5af r-13qz1uu r-1wyyakw r-4gszlv"
+                                                                    style="background-image: url(&quot;https://pbs.twimg.com/profile_images/1454409013081169927/ICEdlzjb_bigger.jpg&quot;);">
+                                                                </div><img alt="Adya" draggable="true"
+                                                                    src="https://pbs.twimg.com/profile_images/1454409013081169927/ICEdlzjb_bigger.jpg"
+                                                                    class="css-9pa8cd">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="css-175oi2r r-sdzlij r-1udh08x r-u8s1d r-1wyvozj r-1v2oles r-desppf"
+                                                    style="width: calc(100% - 4px); height: calc(100% - 4px);">
+                                                    <div class="css-175oi2r r-12181gd r-1pi2tsx r-13qz1uu r-1ny4l3l">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="css-175oi2r r-1wbh5a2 r-dnmrzs r-1ny4l3l">
+                        <div class="css-175oi2r r-1wbh5a2 r-dnmrzs r-1ny4l3l r-16y2uox r-1fz3rvf">
+                            <div class="css-175oi2r r-1wbh5a2 r-dnmrzs r-1ny4l3l">
+                                <div class="css-175oi2r r-1awozwy r-18u37iz r-dnmrzs">
+                                    <div dir="ltr"
+                                        class="css-1rynq56 r-bcqeeo r-qvutc0 r-37j5jr r-a023e6 r-rjixqe r-b88u0q r-1awozwy r-6koalj r-1udh08x r-3s2u2q"
+                                        style="color: rgb(15, 20, 25); text-overflow: unset;"><span
+                                            class="css-1qaijid r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-poiln3"
+                                            style="text-overflow: unset;"><span
+                                                class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3"
+                                                style="text-overflow: unset;">Adya</span><span
+                                                class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3 r-1pos5eu"
+                                                style="text-overflow: unset;"></span></span></div>
+                                    <div dir="ltr"
+                                        class="css-1rynq56 r-bcqeeo r-qvutc0 r-37j5jr r-a023e6 r-rjixqe r-16dba41 r-xoduu5 r-18u37iz r-1q142lx"
+                                        style="color: rgb(15, 20, 25); text-overflow: unset;"><span
+                                            class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3 r-1awozwy r-xoduu5"
+                                            style="text-overflow: unset;"></span></div>
+                                </div>
+                            </div>
+                            <div class="css-175oi2r r-1awozwy r-18u37iz r-1wbh5a2">
+                                <div tabindex="-1" class="css-175oi2r r-1wbh5a2 r-dnmrzs r-1ny4l3l">
+                                    <div class="css-175oi2r">
+                                        <div dir="ltr"
+                                            class="css-1rynq56 r-dnmrzs r-1udh08x r-3s2u2q r-bcqeeo r-qvutc0 r-37j5jr r-a023e6 r-rjixqe r-16dba41 r-18u37iz r-1wvb978"
+                                            style="color: rgb(83, 100, 113); text-overflow: unset;"><span
+                                                class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3"
+                                                style="text-overflow: unset;">@AdyaTech</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="css-175oi2r r-obd0qt r-16y2uox"><svg viewBox="0 0 24 24" aria-hidden="true"
+                            class="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-18jsvk2">
+                            <g>
+                                <path
+                                    d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z">
+                                </path>
+                            </g>
+                        </svg></div>
+                </div>
+            </div>
+        </div>
+        <!-- END OF ADYATECH BUTTON -->
+        </nav>
+    </div>
+    <!-- END OF NAVIGATION BAR -->
+    <!-- END OF PART ONE -->
+
+    <!-- START OF PART TWO -->
+    <div id="canvas">
+        <img style="width: 603px; position: relative; top: 19px; left: 0.1px; cursor: pointer;"
+            src="Images/profilepagedp.png">
+        <img style="width: 315px; position: relative; top: 152px; right: 607px; cursor: text;" src="Images/details.png">
+
+        <div>
+            <p  class="likn" style="position: relative; top: 137px; left: 19px;"><b>21</b> </p>
+            <p class="likn" style="position: relative; top: 137px; left: 19px; color: rgb(83, 100, 113);">Following</p>
+            <p  class="likn" style="position: relative; top: 137px; left: 35px;"><b>79</b> </p>
+            <p class="likn" style="position: relative; top: 137px; left: 35px; color: rgb(83, 100, 113);">Followers</p>
+        </div>
+        <img style="width: 603px; position: relative; bottom: 355px; left: 0.1px; cursor: pointer;" src="Images/postdetail.png">
+        <img style="width: 426px; position: relative; right: 5px; bottom: 356px;" src="Images/chit.png">
+        <img style="width: 20px; height: 685px; position: relative; bottom: 357px; right: 12px;" src="Images/scroller.png">
+
+        <img style="width: 370px; position: relative; bottom: 420px; left: 652px;" src="Images/m.png">
+        </div>
+        <!-- END OF PART TWO -->
+
+</body>
+
+</html>
